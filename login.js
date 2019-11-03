@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button,TextInput, TouchableOpacity } from 'react-native';
-import { white } from 'react-native-paper';
+
 import LottieView from "lottie-react-native";
 
 
 export default class LoginScreen extends Component {
+    
+    //load the lottie animation when start app
     componentDidMount() {
         this.animation.play();
-        // Or set a specific startFrame and endFrame with:
-        // this.animation.play(30, 120);
+  
       }
       resetAnimation = () => {
         this.animation.reset();
         this.animation.play();
       };
+    
+    // current state
     state = {
         Email: '',
         Password: ''
@@ -23,6 +26,8 @@ export default class LoginScreen extends Component {
   render() {
       return (
           <View style={styles.container}>
+
+            {/* Lottie display */}
             <View style={styles.animationContainer}>
                 <LottieView
                     ref={animation => {
@@ -36,14 +41,20 @@ export default class LoginScreen extends Component {
                     source={require('./assets/jump-rope-girl.json')}
                    />
             </View>
+
+            {/* App title */}
             <View style={styles.container}>
             <Text style={styles.appTitle}>Workout App</Text>
+            
+            {/* Email */}
             <TextInput
                 style={styles.customInput}
                 placeholder='Email'
                 value={this.state.Email}
                 onChangeText={Email => this.setState({ Email })}
             />
+
+            {/* password */}
             <TextInput
                 style={styles.customInput}
                 placeholder='Password'
@@ -51,6 +62,7 @@ export default class LoginScreen extends Component {
                 onChangeText={Password => this.setState({ Password })}
             />
             
+            {/* button */}
             <TouchableOpacity 
               style={styles.loginButton}
               onPress = {() => this.props.navigation.navigate('Home')}>

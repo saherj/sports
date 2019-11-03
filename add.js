@@ -4,9 +4,10 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput, Button, FlatList, 
 import moment from 'moment';
 import firebase from './firebase';
 
+
 export default class AddScreen extends Component {
     
-
+      // some props
         constructor(props) {
           super(props)
       
@@ -20,12 +21,11 @@ export default class AddScreen extends Component {
           this.create = this.create.bind(this);
         }
       
+        // run these when app start
         componentDidMount() {
-          firebase
-            .database()
-            .ref()
-            .child("activity")
-            .once("value", snapshot => {
+          
+          //database - once method shows the item once
+          firebase.database().ref().child("activity").once("value", snapshot => {
               const data = snapshot.val()
               if (snapshot.val()) {
                 const fitness = [];
@@ -38,12 +38,8 @@ export default class AddScreen extends Component {
               }
             });
       
-          firebase
-            .database()
-            .ref()
-            .child("activity")
-            .on("child_added", snapshot => {
-              const data = snapshot.val();
+            //database - on metheod continously respond 
+          firebase.database().ref().child("activity").on("child_added", snapshot => { const data = snapshot.val();
               if (data) {
                 this.setState(prevState => ({
                     activity: [data, ...prevState.activity]
@@ -71,18 +67,25 @@ export default class AddScreen extends Component {
       
         render() {
 
+          //display date and day
             const today = this.state.currentDate;
             const day = moment(today).format("dddd");
             const date = moment(today).format("MMMM D, YYYY");
 
           return (
+
+
             <View style={styles.container}>
+
+              {/* title */}
                 <Text style={styles.title}> Workout List</Text>
+                
+              {/* date and day */}
                 <View>
                     <Text style={styles.customDay}>{day} - {date}</Text>
-                    
-
                 </View>
+
+              {/* text and button */}
               <View style={styles.container3}>
 
                 <TextInput placeholder='Add your workout'
@@ -90,12 +93,11 @@ export default class AddScreen extends Component {
                   onChangeText={(text) => this.setState({exercise: text})}
                   style={styles.customTextInput}/>
                 <TouchableOpacity style={styles.addButton} title='Add' onPress={this.create}>
-                <Text style={styles.logintext}>ADD</Text>
+                  <Text style={styles.logintext}>ADD</Text>
                 </TouchableOpacity>
-                
-               
               </View>
               
+              {/* Trainnig Section */}
               <ScrollView>
                 <FlatList data={this.state.activity}
                     renderItem={

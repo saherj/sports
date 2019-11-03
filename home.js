@@ -1,13 +1,15 @@
 
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, ListItem, ActivityIndicator, List, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, ImageBackground } from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 export default class AddScreen extends Component {
-     db = firebase.firestore();
+    
+    // Firestore db
+    db = firebase.firestore();
 
-
+    //some props
      constructor() {
         super();
         this.ref = firebase.firestore().collection('workoutDay');
@@ -17,6 +19,7 @@ export default class AddScreen extends Component {
           workoutDay: []
         };
       }
+      //Display fire store data 
       onCollectionUpdate = (querySnapshot) => {
         const workoutDay = [];
         querySnapshot.forEach((doc) => {
@@ -43,17 +46,23 @@ export default class AddScreen extends Component {
 
       return (
           <View>
-              <View>
-                  <Text style={styles.heading}>Hello Anne</Text>
-              </View>
+
+            {/* title */}
             <View>
-                <ImageBackground style={styles.featuredcard} source={ require('./assets/fitness3.jpg')}>
-                    <View>
-                        <Text style={styles.topText}>HIKING</Text>
-                    </View>
-                </ImageBackground>
+                <Text style={styles.heading}>Hello Anne</Text>
             </View>
-             <View>
+            <View>
+
+            {/* Image with background */}
+            <ImageBackground style={styles.featuredcard} source={ require('./assets/fitness3.jpg')}>
+                <View>
+                    <Text style={styles.topText}>HIKING</Text>
+                </View>
+            </ImageBackground>
+            </View>
+
+            {/* section 2 - subheading with images and their text */}
+            <View>
                 <Text style={styles.subheading}> Training</Text>
             </View>
 
